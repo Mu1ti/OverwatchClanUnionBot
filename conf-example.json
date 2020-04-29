@@ -41,6 +41,11 @@
         {
             "BlackList":"#BlackUser",
             "MemberList":"#Members"
+        },
+        "CommandString":
+        {
+            "BlackList":"블랙리스트",
+            "MemberList":"명단"
         }
     }
 }
