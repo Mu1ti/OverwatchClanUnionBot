@@ -3,6 +3,7 @@ conf.json
 ClanMasterList.json
 gspread.json
 .vs
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
