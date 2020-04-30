@@ -3,13 +3,13 @@ import json, sys, discord, asyncio, logging
 from discord.ext import commands
 
 from modules import Config
-from modules.BlackUser import BlackUser
 from modules import Messages
-from modules import CtlSheet
+from modules.BlackUser import BlackUser
+from modules.CtlSheet import CtlSheet
 
-DiscordDriver = commands.Bot(command_prefix='')
-SheetDriver = CtlSheet
 Config = Config.Import(sys.argv)
+DiscordDriver = commands.Bot(command_prefix='')
+SheetDriver = CtlSheet(Config['GoogleSheet'])
 
 @DiscordDriver.event
 async def on_ready():
@@ -18,15 +18,17 @@ async def on_ready():
 
 @DiscordDriver.command()
 async def 본계정(message):
-    # TODO
-    # 블랙유저의 출처(Source를 추가해야 함)
-
     blackuser = BlackUser()
     content = message.message.content
     verify = blackuser.MessageFormVerify(content)
 
     if verify == True:
         blackuser.MessageFormPharse(content)
+        blackuser.GetBlackUserSource(message)
+        # TODO
+        # 블랙리스트 시트에 들어갈 수 있게 리스트로 변환작업하기
+        # 블랙리스트 시트에 업데이트하기
+        # 블랙리스트 보내줘서 고맙다고 확인 메세지 보내기
         pass
 
     else :
@@ -41,5 +43,4 @@ async def 블랙리스트(message):
         
 
 if __name__ == "__main__":
-
     DiscordDriver.run(Config['Discord']['Token'])

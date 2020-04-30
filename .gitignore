@@ -1,5 +1,8 @@
 # Config Files
 conf.json
+ClanMasterList.json
+gspread.json
+.vs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

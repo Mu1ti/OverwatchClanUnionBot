@@ -1,3 +1,6 @@
+import json
+
+
 class BlackUser:
     def __init__(self):
         self.BattleTag = ""
@@ -103,3 +106,14 @@ class BlackUser:
                 return content
 
         return False
+
+    def GetBlackUserSource(self, message):
+        author = message.author.display_name
+        clan = ""
+
+        with open('ClanMasterList.json', 'r', encoding='utf8') as ClanMasterListFile:
+            clanMasterList = ClanMasterListFile.read()
+            clanMasterList = json.loads(ClanMasterList)
+            clan = clanMasterList[author]
+
+        self.Source = clan
