@@ -47,5 +47,6 @@
             "BlackList":"블랙리스트",
             "MemberList":"명단"
         }
-    }
+    },
+    "AdministrationUser":"ADMIN#12345"
 }
