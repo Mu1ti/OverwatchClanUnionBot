@@ -117,3 +117,54 @@ class BlackUser:
             clan = clanMasterList[author]
 
         self.Source = clan
+
+    def GetUserInfoToList(string, maxLen):
+        result = [None]*maxLen
+
+        if ',' in string :
+            result = string.split(',')
+
+        elif '/' in string :
+            result = string.split('/')
+
+        elif ' ' in string :
+            result = string.split(' ')
+
+        resultLen = len(result)
+
+        if not maxLen == resultLen :
+            if maxLen == 2
+
+        
+
+
+
+
+
+
+
+
+        if ',' in self.Discord :
+            result = self.Discord.split(',')
+
+        elif '/' in self.Discord :
+            result = self.Discord.split('/')
+
+        elif ' ' in self.Discord :
+            result = self.Discord.split()
+
+        else :
+            result = [result ,'']
+
+        return [result[0], result[1]]
+
+    def ToList(self):
+        discordList = self.GetDiscordToList()
+        reason = Get
+
+        result = [ \
+                    self.BattleTag, self.Tier, discordList,
+                    self.Old, self.Gender, self.OtherPersonalInformation, 
+                    reason, self.Source, self.Explanation, self.SubBattleTag
+                  ]
+        pass

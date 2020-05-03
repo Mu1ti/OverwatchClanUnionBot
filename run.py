@@ -25,6 +25,7 @@ async def 본계정(message):
     if verify == True:
         blackuser.MessageFormPharse(content)
         blackuser.GetBlackUserSource(message)
+
         # TODO
         # 블랙리스트 시트에 들어갈 수 있게 리스트로 변환작업하기
         # 블랙리스트 시트에 업데이트하기
@@ -32,7 +33,7 @@ async def 본계정(message):
         pass
 
     else :
-        warningMessage = "앗...! "+verify+"에 대한 내용이 잘못된 것 같습니다... ㅠㅠ\n없으면 \"없음\"으로라도 작성 부탁드립니다! :laughing:"
+        warningMessage = "앗...! "+verify+"에 대한 내용이 잘못된 것 같습니다... ㅠㅠ\n해당 내용이 없다면 \"없음\"으로 작성 부탁드립니다! :laughing:"
         await message.send(warningMessage)
 
 @DiscordDriver.command()
