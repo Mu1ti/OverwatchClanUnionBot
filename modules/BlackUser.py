@@ -113,7 +113,7 @@ class BlackUser:
 
         with open('ClanMasterList.json', 'r', encoding='utf8') as ClanMasterListFile:
             clanMasterList = ClanMasterListFile.read()
-            clanMasterList = json.loads(ClanMasterList)
+            clanMasterList = json.loads(clanMasterList)
             clan = clanMasterList[author]
 
         self.Source = clan
@@ -166,5 +166,6 @@ class BlackUser:
         result += reasonList
         result += [self.Source, self.Explanation]
         result += subBattleTagList
+        
         
         return result

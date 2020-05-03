@@ -20,7 +20,6 @@ class CtlSheet:
         self.ClanUnionDocument = googleSheetDriver.open(self.Config['DocumentName'])
         self.BlackListSheet = self.GetBlackListSheet()
         self.MemberListSheet = self.GetMemberListSheet()
-        pass
 
     def GetBlackListSheet(self):
         return self.ClanUnionDocument.worksheet(self.Config['BlackListSheet']['SheetName'] )
