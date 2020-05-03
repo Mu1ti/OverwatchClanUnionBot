@@ -118,53 +118,53 @@ class BlackUser:
 
         self.Source = clan
 
-    def GetUserInfoToList(string, maxLen):
-        result = [None]*maxLen
+    def GetListLenFromInfoType(self, infoType):
+        if infoType == "Discord":
+            return 2
 
+        elif infoType == "Reason":
+            return 3
+
+        elif infoType == "SubBattleTag":
+            return 8
+
+        return None
+
+    def GetSplitList(self, string):
         if ',' in string :
-            result = string.split(',')
+            return string.split(',')
 
         elif '/' in string :
-            result = string.split('/')
+            return string.split('/')
 
         elif ' ' in string :
-            result = string.split(' ')
+            return string.split(' ')
 
-        resultLen = len(result)
+        return [string]
 
-        if not maxLen == resultLen :
-            if maxLen == 2
+    def GetUserInfoToList(self, string, infoType):
+        listLen = self.GetListLenFromInfoType(infoType)
+        result = self.GetSplitList(string)
 
+        if listLen > len(result):
+            result += ['']*(listLen-len(result))
+
+        elif listLen < len(result):
+            result = result[0:(listLen-1)]
+
+        return result
         
-
-
-
-
-
-
-
-
-        if ',' in self.Discord :
-            result = self.Discord.split(',')
-
-        elif '/' in self.Discord :
-            result = self.Discord.split('/')
-
-        elif ' ' in self.Discord :
-            result = self.Discord.split()
-
-        else :
-            result = [result ,'']
-
-        return [result[0], result[1]]
-
     def ToList(self):
-        discordList = self.GetDiscordToList()
-        reason = Get
+        result = []
+        subBattleTagList = self.GetUserInfoToList(self.SubBattleTag, "SubBattlTag")
+        discordList = self.GetUserInfoToList(self.Discord, "Discord")
+        reasonList = self.GetUserInfoToList(self.Reason, "Reason")
 
-        result = [ \
-                    self.BattleTag, self.Tier, discordList,
-                    self.Old, self.Gender, self.OtherPersonalInformation, 
-                    reason, self.Source, self.Explanation, self.SubBattleTag
-                  ]
-        pass
+        result += [self.BattleTag, self.Tier]
+        result += discordList
+        result += [self.Old, self.Gender, self.OtherPersonalInformation]
+        result += reasonList
+        result += [self.Source, self.Explanation]
+        result += subBattleTagList
+        
+        return result

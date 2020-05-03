@@ -48,5 +48,5 @@
             "MemberList":"명단"
         }
     },
-    "AdministrationUser":"ADMIN#12345"
+    "AdministrationUser":["ADMIN#12345"]
 }
