@@ -1,4 +1,4 @@
-import json, sys, discord, asyncio, logging
+import json, sys, discord, asyncio
 
 from discord.ext import commands
 
@@ -18,7 +18,16 @@ TargetBlackUser = BlackUser()
 @DiscordDriver.event
 async def on_ready():
     print("[*] Start ClanUnionBot")
-    logging.info('Start ClanUnionBot')
+
+@DiscordDriver.on_message
+async def on_message(message):
+    global Status 
+
+    content = message.message.content
+
+    if ('#' in content) and ('\n' in content):
+        Status = "MemberListVerify"
+        
 
 @DiscordDriver.command()
 async def test(message):
@@ -67,9 +76,12 @@ async def 본계정(message):
 
 @DiscordDriver.command()
 async def 블랙리스트(message):
-    if "추가" in message.message.content:
-        sendMessage = Messages.BlackListHelp
-        await message.send(sendMessage)
+    sendMessage = Messages.BlackListHelp
+    await message.send(sendMessage)
         
+async def 클랜원명단(message):
+    send
+    pass
+
 if __name__ == "__main__":
     DiscordDriver.run(Config['Discord']['Token'])
