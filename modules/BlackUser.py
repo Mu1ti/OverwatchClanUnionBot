@@ -145,18 +145,19 @@ class BlackUser:
     def GetUserInfoToList(self, string, infoType):
         listLen = self.GetListLenFromInfoType(infoType)
         result = self.GetSplitList(string)
+        listedStringLen = len(result)
 
-        if listLen > len(result):
-            result += ['']*(listLen-len(result))
+        if listLen > listedStringLen :
+            result += ['']*(listLen-listedStringLen)
 
-        elif listLen < len(result):
+        elif listLen < listedStringLen :
             result = result[0:(listLen-1)]
 
         return result
         
     def ToList(self):
         result = []
-        subBattleTagList = self.GetUserInfoToList(self.SubBattleTag, "SubBattlTag")
+        subBattleTagList = self.GetUserInfoToList(self.SubBattleTag, "SubBattleTag")
         discordList = self.GetUserInfoToList(self.Discord, "Discord")
         reasonList = self.GetUserInfoToList(self.Reason, "Reason")
 

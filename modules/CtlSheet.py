@@ -17,7 +17,7 @@ class CtlSheet:
         credentials = ServiceAccountCredentials.from_json_keyfile_name(jsonKeyFileName, scope)
         googleSheetDriver = gspread.authorize(credentials)
         
-        self.ClanUnionDocument = googleSheetDriver.open(self.Config['DocumentName'])
+        self.ClanUnionDocument = googleSheetDriver.open(documentName)
         self.BlackListSheet = self.GetBlackListSheet()
         self.MemberListSheet = self.GetMemberListSheet()
 

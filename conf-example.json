@@ -36,6 +36,7 @@
     },
     "Discord":
     {
+        "ServerName":"T3stS3rv3r",
         "Token":"ABCD12345",
         "Channel":
         {
