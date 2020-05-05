@@ -32,6 +32,15 @@ def BlackListSpread(blackUser):
     result = MessageContent('BlackListSpread').format(blackUser.Source, BlackUserToText(blackUser))
     return result 
 
+def ClanMemberVerify(memberList):
+    result = MessageContent('BlackListVerify').format(memberList)
+    return result 
+
+def IDKYou(channelName):
+    result = MessageContent('IDKYou').format(channelName)
+    return result
+
 BlackListHelp = MessageContent('BlackListHelp')
-AddMemberListHelp = MessageContent('MemberListHelp')
+MemberListHelp = MessageContent('MemberListHelp')
+
 VerifyDeny = MessageContent('VerifyDeny')

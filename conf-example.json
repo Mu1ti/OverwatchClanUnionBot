@@ -3,50 +3,25 @@
     {
         "URL":"https://docs.google.com/spreadsheets/#####/edit",
         "DocumentName":"제목 없음",
-        "ClientEmail":"example@aaa-bbb-ccc.iam.gserviceaccout.com",
         "JsonKeyFileName":"aaa-bbb-ccc-12345.json",
         "BlackListSheet":
         {
-            "SheetName":"Sheet1",
-            "Cols":
-            {
-                "BattleTag":"A",
-                "Tier":"A",
-                "Discord":"C:D",
-                "Old":"E",
-                "Gender":"F",
-                "OtherPersonalInformation":"G",
-                "Reason":"H:J",
-                "Source":"K",
-                "Explanation":"L",
-                "SubBattleTag":"M:T"
-            }
+            "SheetName":"Sheet1"
         },
         "MemberListSheet":
         {
-            "SheetName":"Sheet2",
-            "Rows":
-            {
-                "Name":2,
-                "ClanMasterBattleTag":3,
-                "UpdateDate":4,
-                "ClanMemberStartRow":5
-            }
+            "SheetName":"Sheet2"
         }
     },
     "Discord":
     {
-        "ServerName":"T3stS3rv3r",
+        "ServerName":"ServerName",
         "Token":"ABCD12345",
-        "Channel":
+        "Channel": 
         {
-            "BlackList":"#BlackUser",
-            "MemberList":"#Members"
-        },
-        "CommandString":
-        {
-            "BlackList":"블랙리스트",
-            "MemberList":"명단"
+          "BlackList": "BlackUser",
+          "MemberList": "Members",
+          "StaffNotify": "ClanMaster"
         }
     },
     "AdminUserDiscord":["ADMIN#12345"]
