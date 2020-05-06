@@ -14,7 +14,7 @@ class BlackUser:
         self.Explanation = ""
         self.SubBattleTag = ""
     
-    def MessageFormVerify(self, message):
+    def MessageFormVerify(self, content):
         properties = \
         {
             'BattleTag' : False,
@@ -28,7 +28,7 @@ class BlackUser:
             'SubBattleTag' : False
         }
 
-        for line in message.split('\n'):
+        for line in content.split('\n'):
             if self.GetPropertyContent(line, '본계정'):
                 properties['BattleTag']=True
             elif self.GetPropertyContent(line, '점수대'):
@@ -107,16 +107,10 @@ class BlackUser:
 
         return False
 
-    def GetBlackUserSource(self, message):
-        author = message.author.display_name
-        clan = ""
-
-        with open('ClanMasterList.json', 'r', encoding='utf8') as ClanMasterListFile:
-            clanMasterList = ClanMasterListFile.read()
-            clanMasterList = json.loads(clanMasterList)
-            clan = clanMasterList[author]
-
-        self.Source = clan
+    def GetBlackUserSource(self, StaffList, message):
+        author = message.author.name + "#" + message.author.discriminator
+        
+        self.Source = StaffList[author]
 
     def GetListLenFromInfoType(self, infoType):
         if infoType == "Discord":

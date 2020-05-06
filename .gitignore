@@ -1,6 +1,7 @@
 # Config Files
 conf.json
-ClanMasterList.json
+StaffList.json
+ClanList.json
 gspread.json
 .vs
 .vscode

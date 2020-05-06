@@ -1,75 +1,56 @@
-import discord, asyncio
+import discord, json
 
-from modules import Config
-import json
+from modules import Messages
+from modules import Init
+from modules import Util
 
+from modules.UnionData import UnionData
 from modules.BlackUser import BlackUser
 from modules.CtlSheet import CtlSheet
 
 class ClanUnion:
-	def __init__(self, Config, DiscordDriver):
-		self.Discord = DiscordDriver
-		self.Sheet = CtlSheet(Config['GoogleSheet'])
-		self.BlackUser = BlackUser()
-		self.StaffList = Config.ClanStaffList
+    def __init__(self, Config, DiscordDriver):
+        self.Config = Config
+        self.Discord = DiscordDriver
 
-		guild__name = Config['Discord']['ServerName']
-		BlackListChannelName = Config['Discord']['Channel']['BlackList']
-		MemberListChannelName = Config['Discord']['Channel']['MemberList']
+        self.Status = ""
+        self.BlackUser = BlackUser()
 
-		self.BlackListChannel = discord.utils.get(DiscordDriver.get_all_channels(), guild__name=guild__name, name=BlackListChannelName)
-		self.MemberListChannel = discord.utils.get(DiscordDriver.get_all_channels(), guild__name=guild__name, name=MemberListChannelName)
+        self.Message = Messages
 
-	class BlackList:
-        def __init__(self):
-            pass
+        self.Sheet = CtlSheet(Config['GoogleSheet'])
+        self.Data = UnionData(Config['Datas'])
+        self.Util = Util
 
-        def HelpMessage(self):
-            pass
+        self.BlackListChannel = None
+        self.MemberListChannel = None
 
+    def ChannelInit(self):
+        guildName = self.Config['Discord']['ServerName']
+        blackListChannelName = self.Config['Discord']['Channel']['BlackList']
+        memberListChannelName = self.Config['Discord']['Channel']['MemberList']
 
-    class MemberList:
-        def __init__(self):
-            self.List = {}
-            pass
+        self.BlackListChannel = discord.utils.get(self.Discord.get_all_channels(), guild__name=guildName, name=blackListChannelName)
+        self.MemberListChannel = discord.utils.get(self.Discord.get_all_channels(), guild__name=guildName, name=memberListChannelName)
 
-        def Load(self, message):
-            content = message.message.contnet
+    def IsStaff(self, message):
+        author = message.author.name + "#" + message.author.discriminator
+    
+        if author in list(self.Data.Staff.keys()):
+            return True
 
-            self.
+        return False
 
-            
+    def IsBlackUser(self, message):
+        result = self.BlackUser.MessageFormVerify(message.message.content)
+        return result
 
+    def BlackUserUpdate(self, message):
+        self.BlackUser.GetBlackUserSource(self.Data.Staff, message)
+        self.BlackUser.MessageFormPharse(message.message.content)
 
-    class StaffList:
-        def __init__(self):
-            self.List = ""
+    def BlackUserReset(self):
+        self.BlackUser = BlackUser()
 
-        def Load(self):
-            content = None
-            with open('StaffList.json','r',encoding='utf8') as staffListFile:
-                content = stafflistFile.read()
-                content = json.loads(content)
-                self.staffList = content
-
-            return None
-
-    class Verify:
-        def __init__(self):
-            pass
-        
-        def IsStaff(self, message, staffList):
-		    author = message.author.name + "#" + message.author.discriminator
-		
-		    if author in staffList:
-			    return True
-
-		    return False
-
-        def IsMemberList(self, message):
-            content = message.message.content
-
-            if ('#' in content) and ('\n' in content):
-                return True
-
-            else False
+    def ListedBlackUser(self):
+        return self.BlackUser.ToList()

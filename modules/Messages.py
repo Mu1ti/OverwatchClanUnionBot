@@ -1,46 +1,31 @@
-def BlackUserToText(blackUser):
-    result = ""
-
-    result += "본계정 : " + blackUser.BattleTag + "\n"
-    result += "점수대 : " + blackUser.Tier + "\n"
-    result += "디스코드 : " + blackUser.Discord + "\n"
-    result += "나이 : " + blackUser.Old + "\n"
-    result += "성별 : " + blackUser.Gender + "\n"
-    result += "기타 개인신상 : " + blackUser.OtherPersonalInformation + "\n"
-    result += "사유 : " + blackUser.Reason + "\n"
-    result += "세부내용 : " + blackUser.Explanation + "\n"
-    result += "부계정 : " + blackUser.SubBattleTag + "\n"
-
-    return result
-
-def MessageContent(messageName):
-    result = ''
-    with open('messages/'+messageName,'r', encoding='utf8') as messageFile :
-        result = messageFile.read()
-
-    return result
+from modules import Util
 
 def BlackListUpdate(source, adminUserDiscord, documentURL):
-    result = MessageContent('BlackListUpdate').format(source, ', '.join(adminUserDiscord), documentURL)
+    result = Util.MessageContent('BlackListUpdate').format(source, ', '.join(adminUserDiscord), documentURL)
     return result 
 
 def BlackListVerify(blackUser):
-    result = MessageContent('BlackListVerify').format(BlackUserToText(blackUser))
+    result = Util.MessageContent('BlackListVerify').format(Util.BlackUserToText(blackUser))
     return result 
 
 def BlackListSpread(blackUser):
-    result = MessageContent('BlackListSpread').format(blackUser.Source, BlackUserToText(blackUser))
+    result = Util.MessageContent('BlackListSpread').format(blackUser.Source, Util.BlackUserToText(blackUser))
     return result 
 
+def BlackListError(error):
+    result = Util.MessageContent('BlackListError').format(error)
+    return result
+
 def ClanMemberVerify(memberList):
-    result = MessageContent('BlackListVerify').format(memberList)
+    result = Util.MessageContent('BlackListVerify').format(memberList)
     return result 
 
 def IDKYou(channelName):
-    result = MessageContent('IDKYou').format(channelName)
+    result = Util.MessageContent('IDKYou').format(channelName)
     return result
 
-BlackListHelp = MessageContent('BlackListHelp')
-MemberListHelp = MessageContent('MemberListHelp')
 
-VerifyDeny = MessageContent('VerifyDeny')
+BlackListHelp = Util.MessageContent('BlackListHelp')
+MemberListHelp = Util.MessageContent('MemberListHelp')
+
+VerifyDeny = Util.MessageContent('VerifyDeny')
