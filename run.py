@@ -28,6 +28,15 @@ async def on_command_error(message, exception):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
         return None
 
+    # 클랜원 리스트 받기
+    if ClanUnionDriver.IsMemberList:
+        ClanUnionDriver.Status = "MemberListVerify"
+        ClanUnionDriver.MemberListUpdate(message)
+        await message.channel.send(ClanUnionDriver.Message.MemberListVerify(ClanUnionDriver.MemberList))
+
+    # 커맨드 잘못입력 받기
+
+
     #TODO
     # 클랜원 리스트 JSON파일 만들기
     # 클랜원 리스트 받아오기
@@ -71,13 +80,28 @@ async def 네(message):
         url = Config['GoogleSheet']['URL']
         msg = ClanUnionDriver.Message.BlackListUpdate(src, admins, url)
 
-        await ClanUnionDriver.BlackListChannel.send(ClanUnionDriver.Message.BlackListSpread(ClanUnionDriver.BlackUser))
+        await ClanUnionDriver.BlackListChannel.send(ClanUnionDriver.Message.BlackListSpread(ClanUnionDriver.BlackUser, url))
         await message.channel.send(msg)
 
         ClanUnionDriver.BlackUserReset()
-        ClanUnionDriver.Status = ""
 
         return None
+    
+    elif ClanUnionDriver.Status == "MemberListVerify":
+        ClanUnionDriver.Sheet.UpdateMemberListSheet(ClanUnionDriver.ListedMemberList())
+        ClanUnionDriver.MemberList.Save()
+
+        src = ClanUnionDriver.MemberList.Name
+        admins = Config['AdminUserDiscord']
+        url = Config['GoogleSheet']['URL']
+        msg = ClanUnionDriver.Message.MemberListUpdate(src, admins,url)
+
+        await ClanUnionDriver.MemberListChannel.send(ClanUnionDriver.Message.MemberListSpread(ClanUnionDriver.MemberList, url))
+        await message.channel.send(msg)
+
+        ClanUnionDriver.MemberListReset()
+
+    ClanUnionDriver.Status = ""
 
     # EasterEgg
     await message.channel.send("네? ^^;;")

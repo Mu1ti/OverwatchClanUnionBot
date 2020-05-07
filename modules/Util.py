@@ -13,6 +13,9 @@ def BlackUserToText(blackUser):
 
     return result
 
+def MemberListToText(memberList):
+    return '\n'.join(memberList.Members)
+
 def MessageContent(messageName):
     result = ''
     with open('messages/'+messageName,'r', encoding='utf8') as messageFile :

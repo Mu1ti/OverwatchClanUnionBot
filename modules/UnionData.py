@@ -5,7 +5,6 @@ class UnionData:
         self.Config = DatasConfig
         self.Staff = self.Load('StaffList')
         self.Clan = self.Load('ClanList')
-        self.Black = self.Load('BlackList')
 
     def Load(self, listType):
         listFileName = self.Config[listType]
@@ -15,9 +14,6 @@ class UnionData:
             result = self._jsonLoad(listFileName)
 
         elif listType == "ClanList":
-            result = self._jsonLoad(listFileName)
-
-        elif listType == "BlackList":
             result = self._jsonLoad(listFileName)
 
         return result
@@ -30,9 +26,6 @@ class UnionData:
 
         elif listType == "ClanList":
             self._jsonSave(listFileName, self.Clan)
-
-        elif listType == "BlackList":
-            self._jsonSave(listFileName, self.Black)
 
     def _jsonLoad(self, fileName):
         content = None

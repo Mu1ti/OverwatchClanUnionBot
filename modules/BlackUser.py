@@ -107,10 +107,10 @@ class BlackUser:
 
         return False
 
-    def GetBlackUserSource(self, StaffList, message):
+    def GetBlackUserSource(self, staffList, message):
         author = message.author.name + "#" + message.author.discriminator
         
-        self.Source = StaffList[author]
+        self.Source = staffList[author]
 
     def GetListLenFromInfoType(self, infoType):
         if infoType == "Discord":
