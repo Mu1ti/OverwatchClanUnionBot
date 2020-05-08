@@ -5,6 +5,7 @@ ClanList.json
 gspread.json
 .vs
 .vscode
+launch.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
