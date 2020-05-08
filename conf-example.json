@@ -13,16 +13,18 @@
             "SheetName":"Sheet2"
         }
     },
-    "Discord":
-    {
-        "ServerName":"ServerName",
-        "Token":"ABCD12345",
-        "Channel": 
-        {
-          "BlackList": "BlackUser",
-          "MemberList": "Members",
-          "StaffNotify": "ClanMaster"
+    "Discord": {
+        "Token": "ABCD12345",
+        "ServerName": "ServerName",
+        "Channel": {
+            "BlackList": "BlackUser",
+            "MemberList": "Members",
+            "StaffNotify": "ClanMaster"
         }
     },
+    "Datas": {
+        "StaffList": "datas/StaffList.json",
+        "ClanList":  "datas/ClanList.json"
+    }
     "AdminUserDiscord":["ADMIN#12345"]
 }

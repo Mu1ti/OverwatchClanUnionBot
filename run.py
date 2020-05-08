@@ -1,4 +1,4 @@
-import sys, discord
+import sys, discord, logging
 
 from discord.ext import commands
 
@@ -29,18 +29,12 @@ async def on_command_error(message, exception):
         return None
 
     # 클랜원 리스트 받기
-    if ClanUnionDriver.IsMemberList:
+    if ClanUnionDriver.IsMemberList(message):
         ClanUnionDriver.Status = "MemberListVerify"
         ClanUnionDriver.MemberListUpdate(message)
         await message.channel.send(ClanUnionDriver.Message.MemberListVerify(ClanUnionDriver.MemberList))
 
-    # 커맨드 잘못입력 받기
-
-
-    #TODO
-    # 클랜원 리스트 JSON파일 만들기
-    # 클랜원 리스트 받아오기
-    # 블랙리스트 시트에 작성할 때 왜 밀려서 작성되는지 확인
+    print("[*] "+message.author.name + "#" + message.author.discriminator+" : "+message.message.content)
 
 #####################################
 #             BlackList             #
@@ -88,8 +82,8 @@ async def 네(message):
         return None
     
     elif ClanUnionDriver.Status == "MemberListVerify":
-        ClanUnionDriver.Sheet.UpdateMemberListSheet(ClanUnionDriver.ListedMemberList())
         ClanUnionDriver.MemberList.Save()
+        ClanUnionDriver.Sheet.UpdateClanListSheet()
 
         src = ClanUnionDriver.MemberList.Name
         admins = Config['AdminUserDiscord']

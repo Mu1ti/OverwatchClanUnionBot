@@ -12,10 +12,7 @@ class UnionData:
 
         if listType == "StaffList":
             result = self._jsonLoad(listFileName)
-
-        elif listType == "ClanList":
-            result = self._jsonLoad(listFileName)
-
+            
         return result
 
     def Update(self, listType):

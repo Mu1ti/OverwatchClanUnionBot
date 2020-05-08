@@ -17,7 +17,7 @@ def BlackListError(error):
     return result
 
 def MemberListVerify(memberList):
-    result = Util.MessageContent('MemberListVerify').format(memberList)
+    result = Util.MessageContent('MemberListVerify').format(memberList.ToText())
     return result 
 
 def MemberListUpdate(source, adminUserDiscord, documentURL):
@@ -25,7 +25,7 @@ def MemberListUpdate(source, adminUserDiscord, documentURL):
     return result
 
 def MemberListSpread(memberList, documentURL):
-    result = Util.MessageContent('MemberListSpread').format(memberList.Name, memberList.Update, len(MemberList.Members), documentURL)
+    result = Util.MessageContent('MemberListSpread').format(memberList.Name, memberList.GetStrUpdateTime(), str(len(memberList.Members)), documentURL)
     return result
 
 def IDKYou(channelName):

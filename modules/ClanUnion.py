@@ -66,8 +66,5 @@ class ClanUnion:
         self.MemberList.GetUpdate()
         self.MemberList.MessageFormPharse(message.message.content)
 
-    def ListedMemberList(self):
-        return self.MemberList.ToList()
-
     def ListedBlackUser(self):
         return self.BlackUser.ToList()

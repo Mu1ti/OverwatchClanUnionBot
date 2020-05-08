@@ -1,5 +1,7 @@
-from oauth2client.service_account import ServiceAccountCredentials
 import gspread
+
+from oauth2client.service_account import ServiceAccountCredentials
+from modules import Util
 
 class CtlSheet:
     def __init__(self, Config):
@@ -28,8 +30,10 @@ class CtlSheet:
         return self.ClanUnionDocument.worksheet(self.Config['MemberListSheet']['SheetName'] )
 
     def UpdateBlackListSheet(self, user):
-        self.BlackListSheet.append_row(user)
+        self.BlackListSheet.insert_row(user, 5)
 
-    def UpdateMemberListSheet(self, user):
-        # 업데이트 날짜순으로 정렬해야 하기 때문에 생각을 좀 할 필요가 있음
-        pass
+    def UpdateClanListSheet(self):
+        sheetContent = Util.ConvertClanListForSheet()
+
+        self.MemberListSheet.clear()
+        self.MemberListSheet.update('A1',sheetContent)
