@@ -95,6 +95,8 @@ async def 네(message):
 
         ClanUnionDriver.MemberListReset()
 
+        return None
+
     ClanUnionDriver.Status = ""
 
     # EasterEgg
