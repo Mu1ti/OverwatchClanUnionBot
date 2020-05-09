@@ -16,6 +16,8 @@ ClanUnionDriver = ClanUnion(Config, DiscordDriver)
 @DiscordDriver.event
 async def on_ready():
     ClanUnionDriver.ChannelInit()
+
+    logging.basicConfig(filename='actions.log', level=logging.INFO)
     print("[*] Start ClanUnionBot")
 
 #####################################
@@ -24,17 +26,23 @@ async def on_ready():
 
 @DiscordDriver.event
 async def on_command_error(message, exception):
-    if message.channel.type.name == "private" and not ClanUnionDriver.IsStaff(message):
+    if message.channel.type.name == "text":
+        return None
+
+    if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
 
     # 클랜원 리스트 받기
     if ClanUnionDriver.IsMemberList(message):
         ClanUnionDriver.Status = "MemberListVerify"
         ClanUnionDriver.MemberListUpdate(message)
+        logging.info("[*] "+ message.author.name + "#" + message.author.discriminator+" is send me memberlist "+message.message.content)
         await message.channel.send(ClanUnionDriver.Message.MemberListVerify(ClanUnionDriver.MemberList))
 
     print("[*] "+message.author.name + "#" + message.author.discriminator+" : "+message.message.content)
+    logging.info("[*] "+ message.author.name + "#" + message.author.discriminator+" : "+message.message.content)
 
 #####################################
 #             BlackList             #
@@ -42,8 +50,12 @@ async def on_command_error(message, exception):
 
 @DiscordDriver.command()
 async def 본계정(message):
-    if message.channel.type.name == "private" and not ClanUnionDriver.IsStaff(message):
+    if message.channel.type.name == "text":
+        return None
+
+    if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
     
     verify = ClanUnionDriver.IsBlackUser(message)
@@ -51,6 +63,7 @@ async def 본계정(message):
     if verify == True:
         ClanUnionDriver.Status = "BlackUserVerify"
         ClanUnionDriver.BlackUserUpdate(message)
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" is send me blacklist "+message.message.content)
         await message.channel.send(ClanUnionDriver.Message.BlackListVerify(ClanUnionDriver.BlackUser))
 
     else :
@@ -62,8 +75,12 @@ async def 본계정(message):
 
 @DiscordDriver.command()
 async def 네(message):
-    if message.channel.type.name == "private" and not ClanUnionDriver.IsStaff(message):
+    if message.channel.type.name == "text":
+        return None
+
+    if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
 
     if ClanUnionDriver.Status == "BlackUserVerify":
@@ -74,9 +91,11 @@ async def 네(message):
         url = Config['GoogleSheet']['URL']
         msg = ClanUnionDriver.Message.BlackListUpdate(src, admins, url)
 
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" was "+ClanUnionDriver.Status+" accepted")
         await ClanUnionDriver.BlackListChannel.send(ClanUnionDriver.Message.BlackListSpread(ClanUnionDriver.BlackUser, url))
         await message.channel.send(msg)
 
+        ClanUnionDriver.Status = ""
         ClanUnionDriver.BlackUserReset()
 
         return None
@@ -90,27 +109,32 @@ async def 네(message):
         url = Config['GoogleSheet']['URL']
         msg = ClanUnionDriver.Message.MemberListUpdate(src, admins,url)
 
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" was "+ClanUnionDriver.Status+" accepted")
         await ClanUnionDriver.MemberListChannel.send(ClanUnionDriver.Message.MemberListSpread(ClanUnionDriver.MemberList, url))
         await message.channel.send(msg)
 
+        ClanUnionDriver.Status = ""
         ClanUnionDriver.MemberListReset()
 
         return None
-
-    ClanUnionDriver.Status = ""
 
     # EasterEgg
     await message.channel.send("네? ^^;;")
 
 @DiscordDriver.command()
 async def 아니요(message):
-    if message.channel.type.name == "private" and not ClanUnionDriver.IsStaff(message):
+    if message.channel.type.name == "text":
+        return None
+
+    if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
 
     if ClanUnionDriver.Status :
         ClanUnionDriver.BlackUserReset()
         ClanUnionDriver.Status = ""
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" was "+ClanUnionDriver.Status+" denied")
         await message.channel.send(ClanUnionDriver.Message.VerifyDeny)
 
         return None
@@ -124,18 +148,28 @@ async def 아니요(message):
 
 @DiscordDriver.command()
 async def 블랙리스트(message):
-    if message.channel.type.name == "private" and not ClanUnionDriver.IsStaff(message):
-        await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
+    if message.channel.type.name == "text":
         return None
 
+    if not ClanUnionDriver.IsStaff(message):
+        await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
+        return None
+
+    logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" is helping BlackList")
     await message.send(ClanUnionDriver.Message.BlackListHelp)
 
 @DiscordDriver.command()
 async def 클랜원명단(message):
-    if message.channel.type.name == "private" and not ClanUnionDriver.IsStaff(message):
-        await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
+    if message.channel.type.name == "text":
         return None
 
+    if not ClanUnionDriver.IsStaff(message):
+        await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
+        logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
+        return None
+
+    logging.info("[*] "+message.author.name + "#" + message.author.discriminator+" is helping MemberList")
     await message.send(ClanUnionDriver.Message.MemberListHelp)    
 
 #####################################
