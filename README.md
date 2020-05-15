@@ -1,5 +1,5 @@
 # OverwatchClanUnionBot
-오버워치 클랜연합에서 사용하는 디스코드 봇입니다.
+오버워치 클랜마스터 모임에서 사용하는 디스코드 봇입니다.
 
 gspread, discord 패키지를 사용합니다.
 

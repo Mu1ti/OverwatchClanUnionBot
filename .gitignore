@@ -1,11 +1,11 @@
 # Config Files
 conf.json
-StaffList.json
-ClanList.json
+datas/
 gspread.json
 .vs
 .vscode
 launch.json
+nohup.out
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
