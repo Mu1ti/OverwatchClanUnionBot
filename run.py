@@ -48,9 +48,9 @@ async def on_command_error(message, exception):
         await message.channel.send(ClanUnionDriver.Message.MemberListVerify(ClanUnionDriver.MemberList))
         return None
 
-    print("[*] "+message.author.name + "#" + message.author.discriminator+" : "+message.message.content)
-    print(exception)
-    Logger.info("[*] "+ message.author.name + "#" + message.author.discriminator+" : "+message.message.content)#+"\n"+exception)
+    Logger.info("[!] "+ message.author.name + "#" + message.author.discriminator+" is make exception! "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    Logger.info("[!] Exception Type : "+exception.args[0])
+    Logger.info("[!] "+ message.author.name + "#" + message.author.discriminator+" : "+message.message.content)
 
 #####################################
 #             BlackList             #
