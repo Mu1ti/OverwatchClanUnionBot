@@ -25,6 +25,6 @@
     "Datas": {
         "StaffList": "datas/StaffList.json",
         "ClanList":  "datas/ClanList.json"
-    }
+    },
     "AdminUserDiscord":["ADMIN#12345"]
 }
