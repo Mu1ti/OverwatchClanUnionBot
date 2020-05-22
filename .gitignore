@@ -1,11 +1,11 @@
 # Config Files
 conf.json
-StaffList.json
-ClanList.json
+datas/
 gspread.json
 .vs
 .vscode
 launch.json
+nohup.out
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -136,4 +136,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-owclan-40673bfb7b7e.json

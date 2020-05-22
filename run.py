@@ -1,4 +1,4 @@
-import sys, discord, logging
+import sys, discord, logging, datetime
 
 from discord.ext import commands
 
@@ -37,20 +37,20 @@ async def on_command_error(message, exception):
 
     if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
 
     # 클랜원 리스트 받기
     if ClanUnionDriver.IsMemberList(message):
         ClanUnionDriver.Status = "MemberListVerify"
         ClanUnionDriver.MemberListUpdate(message)
-        Logger.info("[*] "+ message.author.name + "#" + message.author.discriminator+" is send me memberlist "+message.message.content)
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+ message.author.name + "#" + message.author.discriminator+" is send me memberlist "+message.message.content)
         await message.channel.send(ClanUnionDriver.Message.MemberListVerify(ClanUnionDriver.MemberList))
         return None
 
-    print("[*] "+message.author.name + "#" + message.author.discriminator+" : "+message.message.content)
-    print(exception)
-    Logger.info("[*] "+ message.author.name + "#" + message.author.discriminator+" : "+message.message.content)#+"\n"+exception)
+    Logger.info("[!] "+ message.author.name + "#" + message.author.discriminator+" is make exception! "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    Logger.info("[!] Exception Type : "+exception.args[0])
+    Logger.info("[!] "+ message.author.name + "#" + message.author.discriminator+" : "+message.message.content)
 
 #####################################
 #             BlackList             #
@@ -63,7 +63,7 @@ async def 본계정(message):
 
     if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
     
     verify = ClanUnionDriver.IsBlackUser(message)
@@ -71,7 +71,7 @@ async def 본계정(message):
     if verify == True:
         ClanUnionDriver.Status = "BlackUserVerify"
         ClanUnionDriver.BlackUserUpdate(message)
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" is send me blacklist "+message.message.content)
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" is send me blacklist "+message.message.content)
         await message.channel.send(ClanUnionDriver.Message.BlackListVerify(ClanUnionDriver.BlackUser))
 
     else :
@@ -88,7 +88,7 @@ async def 네(message):
 
     if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
 
     if ClanUnionDriver.Status == "BlackUserVerify":
@@ -99,7 +99,7 @@ async def 네(message):
         url = Config['GoogleSheet']['URL']
         msg = ClanUnionDriver.Message.BlackListUpdate(src, admins, url)
 
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" was "+ClanUnionDriver.Status+" accepted")
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" was "+ClanUnionDriver.Status+" accepted")
         await ClanUnionDriver.BlackListChannel.send(ClanUnionDriver.Message.BlackListSpread(ClanUnionDriver.BlackUser, url))
         await message.channel.send(msg)
 
@@ -117,7 +117,7 @@ async def 네(message):
         url = Config['GoogleSheet']['URL']
         msg = ClanUnionDriver.Message.MemberListUpdate(src, admins,url)
 
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" was "+ClanUnionDriver.Status+" accepted")
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" was "+ClanUnionDriver.Status+" accepted")
         await ClanUnionDriver.MemberListChannel.send(ClanUnionDriver.Message.MemberListSpread(ClanUnionDriver.MemberList, url))
         await message.channel.send(msg)
 
@@ -136,13 +136,13 @@ async def 아니요(message):
 
     if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
 
     if ClanUnionDriver.Status :
         ClanUnionDriver.BlackUserReset()
         ClanUnionDriver.Status = ""
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" was "+ClanUnionDriver.Status+" denied")
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" was "+ClanUnionDriver.Status+" denied")
         await message.channel.send(ClanUnionDriver.Message.VerifyDeny)
 
         return None
@@ -161,10 +161,10 @@ async def 블랙리스트(message):
 
     if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
 
-    Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" is helping BlackList")
+    Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" is helping BlackList")
     await message.send(ClanUnionDriver.Message.BlackListHelp)
 
 @DiscordDriver.command()
@@ -174,10 +174,10 @@ async def 클랜원명단(message):
 
     if not ClanUnionDriver.IsStaff(message):
         await message.channel.send(ClanUnionDriver.Message.IDKYou(Config['Discord']['Channel']['StaffNotify']))
-        Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" is not Staff")
+        Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" is not Staff")
         return None
 
-    Logger.info("[*] "+message.author.name + "#" + message.author.discriminator+" is helping MemberList")
+    Logger.info("[*] "+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" "+message.author.name + "#" + message.author.discriminator+" is helping MemberList")
     await message.send(ClanUnionDriver.Message.MemberListHelp)    
 
 #####################################
