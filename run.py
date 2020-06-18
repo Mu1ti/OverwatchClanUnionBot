@@ -21,7 +21,6 @@ async def on_ready():
     ClanUnionDriver.ChannelInit()
 
     Logger.setLevel(logging.INFO)
-    if os.path.isfile('actions.log')
     LoggHandler = logging.FileHandler('actions.log', 'a', 'utf-8-sig')
     Logger.addHandler(LoggHandler)
 
