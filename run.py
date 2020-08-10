@@ -21,7 +21,7 @@ async def on_ready():
     ClanUnionDriver.ChannelInit()
 
     Logger.setLevel(logging.INFO)
-    LoggHandler = logging.FileHandler('actions.log', 'a', 'utf-8-sig')
+    LoggHandler = logging.FileHandler('actions.log', 'w', 'utf-8-sig')
     Logger.addHandler(LoggHandler)
 
     print("[*] Start ClanUnionBot")
